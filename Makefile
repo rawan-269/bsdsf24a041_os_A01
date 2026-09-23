@@ -26,3 +26,14 @@ $(STATIC_TARGET): $(STATIC_LIB) obj/main.o
 
 $(STATIC_LIB): $(LIBOBJ)
 	ar rcs $(STATIC_LIB) $(LIBOBJ)
+
+DYNAMIC_LIB = lib/libmyutils.so
+DYNAMIC_TARGET = bin/client_dynamic
+
+dynamic: $(DYNAMIC_TARGET)
+
+$(DYNAMIC_TARGET): $(DYNAMIC_LIB) src/main.c
+	$(CC) $(CFLAGS) src/main.c -Llib -lmyutils -o $(DYNAMIC_TARGET)
+
+$(DYNAMIC_LIB): src/mystrfunctions.c src/myfilefunctions.c
+	$(CC) $(CFLAGS) -fPIC -shared -o $(DYNAMIC_LIB) src/mystrfunctions.c src/myfilefunctions.c

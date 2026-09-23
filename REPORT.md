@@ -60,3 +60,30 @@ directory the loader searches by default. Setting
 LD_LIBRARY_PATH=$PWD/lib let the loader find it in our local lib/
 folder. The ldd command can be used to verify which shared libraries
 an executable depends on and where they were resolved from.
+
+## Feature 5: Documentation & Installation
+
+### Q1: groff formatting
+Man pages are written using groff/troff markup. Key macros used:
+- .TH sets the title header (function name, section, date, source,
+  manual name)
+- .SH starts a new section (NAME, SYNOPSIS, DESCRIPTION, etc.)
+- .B makes text bold (used for literal code like #include lines)
+- .I makes text italic (used for variable/parameter names)
+- .BI alternates bold and italic on the same line, useful for
+  function signatures where the function name is bold and the
+  parameter name is italic
+- .sp adds a blank line, .nf/.fi start and end a "no-fill" block
+  (used for code examples so formatting/whitespace is preserved)
+
+### Q2: Install targets
+The install target is a standard Makefile convention (along with all,
+clean, and uninstall) that copies built artifacts - headers, libraries,
+the executable, and man pages - into standard system directories under
+/usr/local, so they become available system-wide rather than only in
+the project folder. The install command (as opposed to plain cp) also
+sets correct file permissions and creates destination directories if
+they don't exist. Running ldconfig afterward updates the dynamic
+linker's cache so libmyutils.so can be found at runtime by any program
+without needing LD_LIBRARY_PATH set manually. After installation,
+running "client" and "man str_reverse" work from any directory.

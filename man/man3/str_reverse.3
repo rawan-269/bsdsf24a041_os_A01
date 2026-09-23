@@ -1,0 +1,18 @@
+.TH STR_REVERSE 3 "2026" "libmyutils" "Library Functions Manual"
+.SH NAME
+str_reverse \- reverse a string in place
+.SH SYNOPSIS
+.B #include "mystrfunctions.h"
+.sp
+.BI "void str_reverse(char *" str );
+.SH DESCRIPTION
+Reverses the contents of the null-terminated string
+.I str
+in place.
+.SH RETURN VALUE
+None.
+.SH EXAMPLE
+.nf
+char s[] = "hello";
+str_reverse(s);  // s is now "olleh"
+.fi

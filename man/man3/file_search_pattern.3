@@ -1,0 +1,19 @@
+.TH FILE_SEARCH_PATTERN 3 "2026" "libmyutils" "Library Functions Manual"
+.SH NAME
+file_search_pattern \- search for a pattern in a file
+.SH SYNOPSIS
+.B #include "myfilefunctions.h"
+.sp
+.BI "int file_search_pattern(const char *" filename ", const char *" pattern );
+.SH DESCRIPTION
+Searches the file named
+.I filename
+line by line for occurrences of the substring
+.IR pattern .
+.SH RETURN VALUE
+Returns the number of lines containing the pattern, or \-1 if the
+file could not be opened.
+.SH EXAMPLE
+.nf
+int matches = file_search_pattern("log.txt", "ERROR");
+.fi

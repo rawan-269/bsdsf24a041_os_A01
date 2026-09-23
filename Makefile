@@ -37,3 +37,20 @@ $(DYNAMIC_TARGET): $(DYNAMIC_LIB) src/main.c
 
 $(DYNAMIC_LIB): src/mystrfunctions.c src/myfilefunctions.c
 	$(CC) $(CFLAGS) -fPIC -shared -o $(DYNAMIC_LIB) src/mystrfunctions.c src/myfilefunctions.c
+
+PREFIX = /usr/local
+
+install: static dynamic
+	install -d $(PREFIX)/include $(PREFIX)/lib $(PREFIX)/bin $(PREFIX)/share/man/man3
+	install -m 644 include/*.h $(PREFIX)/include
+	install -m 644 lib/libmyutils.a $(PREFIX)/lib
+	install -m 755 lib/libmyutils.so $(PREFIX)/lib
+	install -m 755 bin/client_static $(PREFIX)/bin/client
+	install -m 644 man/man3/*.3 $(PREFIX)/share/man/man3
+	ldconfig
+
+uninstall:
+	rm -f $(PREFIX)/include/mystrfunctions.h $(PREFIX)/include/myfilefunctions.h
+	rm -f $(PREFIX)/lib/libmyutils.a $(PREFIX)/lib/libmyutils.so
+	rm -f $(PREFIX)/bin/client
+	rm -f $(PREFIX)/share/man/man3/*.3
